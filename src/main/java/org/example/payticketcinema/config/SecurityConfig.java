@@ -38,6 +38,6 @@ public class SecurityConfig {
 
 /*
 cinema list to do
-add ticket to do 
+add ticket to do
  */
 }

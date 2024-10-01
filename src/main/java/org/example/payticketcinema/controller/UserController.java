@@ -2,7 +2,9 @@ package org.example.payticketcinema.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.payticketcinema.model.dto.UserForLk;
+import org.example.payticketcinema.model.entity.Ticket;
 import org.example.payticketcinema.model.entity.User;
+import org.example.payticketcinema.service.TicketService;
 import org.example.payticketcinema.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final TicketService ticketService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
@@ -34,7 +37,7 @@ public class UserController {
             @RequestParam String confirm_password,
             Model model
     ) {
-
+        Ticket ticket = new Ticket();
         User user = new User();
         user.setCity(city);
         user.setUsername(name);
@@ -45,6 +48,7 @@ public class UserController {
         }
         user.setPassword(password);
 
+        ticketService.saveTicket(ticket, user);
         userService.saveUser(user);
 
 
@@ -90,6 +94,3 @@ public class UserController {
         return "my-ticket";
     }
 }
-/*
-выводить список билетов которые есть у юзера по адресу /lk/my-ticket?username= + username
- */
