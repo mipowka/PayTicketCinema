@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>вы вошли в аккаунт но извините фильмов нет</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            background-image: url('/img/bg.jpg'); /* Update the path as needed */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background for readability */
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .user-info {
+            position: absolute; /* Absolute positioning */
+            top: 20px; /* Distance from the top */
+            right: 20px; /* Distance from the right */
+            text-align: right; /* Align text to the right */
+            font-size: 18px; /* Font size */
+            color: white; /* Text color */
+        }
+
+        h2 {
+            margin: 20px 0;
+            font-size: 24px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Space between links */
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffcc00; /* Change color on hover */
+        }
+    </style>
+</head>
+<body>
+<div class="user-info">
+    <p>Имя пользователя: <span th:text="${userForLk.username}"></span></p>
+    <p>Город: <span th:text="${userForLk.city}"></span></p>
+</div>
+<div class="container">
+    <h2>вы вошли в аккаунт но извините фильмов нет</h2>
+    <nav>
+        <a th:href="@{/lk/my-ticket(username=${userForLk.username})}">Мои билеты</a>
+        <a href="/lk/pay-ticket">Купить билет</a>
+        <a href="/lk/exit">Выйти</a>
+    </nav>
+</div>
+
+</body>
+</html>

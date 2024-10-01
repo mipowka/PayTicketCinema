@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список ваших билетов</title>
+    <style>
+        body {
+            background: antiquewhite;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            margin: 0 auto;
+            width: 80%;
+            border-collapse: collapse; /* Ensure borders are merged */
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left; /* Align text to the left */
+        }
+
+        th {
+            background-color: #f2f2f2; /* Light grey background for header */
+        }
+    </style>
+</head>
+<body>
+<h1>Ваши билеты</h1>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Owner Name</th>
+        <th>Movie Name</th>
+        <th>Seat</th>
+        <th>Line</th>
+        <th>Movie Date</th>
+        <th>Price</th>
+    </tr>
+    <tr th:each="ticket : ${userForLk.tickets}">
+        <td th:text="${ticket.id}"></td>
+        <td th:text="${ticket.ownerName}"></td>
+        <td th:text="${ticket.movieName}"></td>
+        <td th:text="${ticket.seat}"></td>
+        <td th:text="${ticket.line}"></td>
+        <td th:text="${ticket.movieDate}"></td>
+        <td th:text="${ticket.price}"></td>
+    </tr>
+</table>
+<div th:if="${#lists.isEmpty(userForLk.tickets)}">
+    <p>У вас нет купленных билетов.</p>
+</div>
+<p><a th:href="@{/lk(username=${userForLk.username})}">Вернуться в личный кабинет</a></p>
+</body>
+</html>
