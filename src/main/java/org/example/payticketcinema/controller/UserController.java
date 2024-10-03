@@ -1,7 +1,9 @@
 package org.example.payticketcinema.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.payticketcinema.model.dto.UserForLk;
+import org.example.payticketcinema.model.dto.UserAuthDto;
+import org.example.payticketcinema.model.dto.UserForLkDto;
 import org.example.payticketcinema.model.entity.Ticket;
 import org.example.payticketcinema.model.entity.User;
 import org.example.payticketcinema.service.TicketService;
@@ -9,6 +11,7 @@ import org.example.payticketcinema.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -18,7 +21,8 @@ public class UserController {
     private final TicketService ticketService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
+    public String login(Model model) {
+        model.addAttribute("user", new UserAuthDto());
         return "login";
     }
 
@@ -57,40 +61,47 @@ public class UserController {
 
     }
 
-//    @PostMapping(value = "/login")
-//    public String loginPost(
-//            @RequestParam String username,
-//            @RequestParam String password,
-//            Model model
-//    ) {
-//
-//        User user = new User();
-//        user.setUsername(username);
-//        user.setPassword(password);
-//
+    @PostMapping(value = "/login")
+    public String loginPost(
+            @Valid  @ModelAttribute UserAuthDto userAuthDto,
+            BindingResult bindingResult,
+            Model model
+    ) {
+
+        if (bindingResult.hasErrors()){
+            model.addAttribute("user", new UserAuthDto());
+            return "login";
+        }
+
+        User user = User.builder()
+               .username(userAuthDto.getUsername())
+               .password(userAuthDto.getPassword())
+               .build();
+
 //        boolean isLogin = userService.loginUser(user);
 //
 //        if (!isLogin) {
 //            model.addAttribute("message", "логин или пароль не верны");
 //            return "login";
 //        }
-//        return "redirect:/lk?username=" + username;
-//    }
+
+        return "redirect:/lk?username=" + user.getUsername();
+    }
 
     @GetMapping("/lk")
     public String lk(Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        UserForLk userForLk = userService.getUserByUsername(username);
-        model.addAttribute("userForLk", userForLk);
+        UserForLkDto userForLkDto = userService.getUserByUsername(username);
+        model.addAttribute("userForLk", userForLkDto);
         return "menu";
     }
 
 
     @GetMapping("/lk/my-ticket")
     public String myTicket(@RequestParam(name = "username") String username, Model model) {
-        UserForLk userForLk = userService.getUserByUsername(username);
-        model.addAttribute("userForLk", userForLk);
+        UserForLkDto userForLkDto = userService.getUserByUsername(username);
+        model.addAttribute("userForLk", userForLkDto);
         return "my-ticket";
     }
 }

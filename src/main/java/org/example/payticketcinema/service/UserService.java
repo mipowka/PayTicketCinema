@@ -2,7 +2,7 @@ package org.example.payticketcinema.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.payticketcinema.mapping.UserMapper;
-import org.example.payticketcinema.model.dto.UserForLk;
+import org.example.payticketcinema.model.dto.UserForLkDto;
 import org.example.payticketcinema.model.entity.User;
 import org.example.payticketcinema.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -31,11 +31,11 @@ public class UserService {
         return true;
     }
 
-    public UserForLk getUserByUsername(String username) {
+    public UserForLkDto getUserByUsername(String username) {
         User byUsername = userRepository.findByUsername(username);
-        UserForLk userForLk = userMapper.toDto(byUsername);
+        UserForLkDto userForLkDto = userMapper.toDto(byUsername);
 
-        return userForLk;
+        return userForLkDto;
     }
 
 }

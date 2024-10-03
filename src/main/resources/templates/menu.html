@@ -60,13 +60,12 @@
 </head>
 <body>
 <div class="user-info">
-    <p>Имя пользователя: <span th:text="${userForLk.username}"></span></p>
-    <p>Город: <span th:text="${userForLk.city}"></span></p>
+
 </div>
 <div class="container">
     <h2>вы вошли в аккаунт но извините фильмов нет</h2>
     <nav>
-        <a th:href="@{/lk/my-ticket(username=${userForLk.username})}">Мои билеты</a>
+
         <a href="/lk/pay-ticket">Купить билет</a>
         <a href="/lk/exit">Выйти</a>
     </nav>

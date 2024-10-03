@@ -78,12 +78,12 @@
 
 <div class="container">
     <h2>Войти в аккаунт</h2>
-    <form action="/login" method="post">
+    <form action="/login" method="post" th:object="${user}">
         <label for="username">Логин</label>
-        <input type="text" id="username" name="username" placeholder="Введите логин" required>
+        <input type="text" id="username" th:field="*{username}" placeholder="Введите логин" required>
 
         <label for="password">Пароль</label>
-        <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+        <input type="password" id="password" th:field="*{password}" placeholder="Введите пароль" required>
 
         <input type="submit" value="Войти">
     </form>

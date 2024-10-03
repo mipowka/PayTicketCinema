@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class UserForLk {
+public class UserForLkDto {
 
     private String username;
     private String phone;

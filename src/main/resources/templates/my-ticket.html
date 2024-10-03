@@ -40,7 +40,7 @@
         <th>Movie Date</th>
         <th>Price</th>
     </tr>
-    <tr th:each="ticket : ${userForLk.tickets}">
+    <tr th:each="ticket : ${userForLkDto.tickets}">
         <td th:text="${ticket.id}"></td>
         <td th:text="${ticket.ownerName}"></td>
         <td th:text="${ticket.movieName}"></td>
@@ -50,9 +50,9 @@
         <td th:text="${ticket.price}"></td>
     </tr>
 </table>
-<div th:if="${#lists.isEmpty(userForLk.tickets)}">
+<div th:if="${#lists.isEmpty(userForLkDto.tickets)}">
     <p>У вас нет купленных билетов.</p>
 </div>
-<p><a th:href="@{/lk(username=${userForLk.username})}">Вернуться в личный кабинет</a></p>
+<p><a th:href="@{/lk(username=${userForLkDto.username})}">Вернуться в личный кабинет</a></p>
 </body>
 </html>
