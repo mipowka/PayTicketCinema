@@ -34,10 +34,10 @@ public class SecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.GET,"/login","/register").permitAll()
-                .requestMatchers(HttpMethod.POST, "/login", "/register").permitAll()
+                .requestMatchers(HttpMethod.POST, "/login", "/register","/process-login").permitAll()
 
-                .requestMatchers(HttpMethod.GET, "/lk", "/lk/my-ticket").authenticated()
-                .requestMatchers(HttpMethod.POST, "/lk", "/lk/my-ticket").authenticated()
+                .requestMatchers(HttpMethod.GET, "/lk", "/lk/my-ticket").permitAll()
+                .requestMatchers(HttpMethod.POST, "/lk", "/lk/my-ticket").permitAll()
 
                 .requestMatchers(HttpMethod.GET, "/login-admin").hasRole("ADMIN")
                 .anyRequest().permitAll()
@@ -49,8 +49,9 @@ public class SecurityConfig {
 
         http.formLogin(login ->
                 login.loginPage("/login")
-                        .loginProcessingUrl("/lk")
-                        .failureUrl("/login-error")
+                        //.loginProcessingUrl("/process-login")
+                        .defaultSuccessUrl("/lk")
+                        .failureUrl("/login?error=true")
                         .permitAll()
 
         );

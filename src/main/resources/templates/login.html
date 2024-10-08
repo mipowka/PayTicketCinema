@@ -82,18 +82,25 @@
         <label for="username">Логин</label>
         <input type="text" id="username" th:field="*{username}" placeholder="Введите логин" required>
 
+        <div th:if="${#fields.hasErrors('username')}" style="color: red;">
+            <p th:errors="*{username}" class="error"></p>
+        </div>
+
         <label for="password">Пароль</label>
         <input type="password" id="password" th:field="*{password}" placeholder="Введите пароль" required>
+
+        <div th:if="${#fields.hasErrors('password')}" style="color: red;">
+            <p th:errors="*{password}" class="error"></p>
+        </div>
 
         <input type="submit" value="Войти">
     </form>
 
+
     <div class="form-footer">
         <p>Еще нет аккаунта? <a href="/register">Зарегистрируйтесь</a></p>
     </div>
-    <div th:if="${message} != null ">
-        <p th:text="${message}"></p>
-    </div>
+
 </div>
 
 </body>
